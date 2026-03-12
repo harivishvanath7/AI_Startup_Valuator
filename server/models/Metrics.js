@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const metricsSchema = new mongoose.Schema(
     {
-        startup: {
+        startupId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Startup",
             required: true
@@ -29,4 +29,4 @@ const metricsSchema = new mongoose.Schema(
 
 const Metrics = mongoose.model("Metrics", metricsSchema);
 
-module.exports = Metrics;
+export default Metrics;

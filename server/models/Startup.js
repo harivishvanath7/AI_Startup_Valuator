@@ -9,7 +9,7 @@ const startupSchema = new mongoose.Schema(
         industry: {
             type: String,
         },
-        founder: {
+        founderId: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
@@ -24,6 +24,6 @@ const startupSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-const Startup = mongoose.Model("Startup", startupSchema);
+const Startup = mongoose.model("Startup", startupSchema);
 
-module.exports = Startup;
+export default Startup;
