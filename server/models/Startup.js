@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const startupSchema = new mongoose.Schema(
     {
@@ -26,4 +26,4 @@ const startupSchema = new mongoose.Schema(
 
 const Startup = mongoose.model("Startup", startupSchema);
 
-export default Startup;
+module.exports = Startup;
