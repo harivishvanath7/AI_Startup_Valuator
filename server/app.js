@@ -1,13 +1,15 @@
-const express = require("express");
-const cors = require("cors");
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
-const authRoutes = require("./routes/authRoutes");
-const startupRoutes = require("./routes/startupRoutes");
+import authRoutes from "./routes/authRoutes";
+import startupRoutes from "./routes/startupRoutes";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/startups", startupRoutes);
