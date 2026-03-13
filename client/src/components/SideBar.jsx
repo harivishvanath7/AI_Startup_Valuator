@@ -10,6 +10,8 @@ const SideBar = () => {
 
         <Link to="/startups">Startups</Link>
 
+        <Link to="/startups/create">Create Startup</Link>
+
         <Link to="/metrics">Metrics</Link>
 
         <Link to="/reports">Reports</Link>
