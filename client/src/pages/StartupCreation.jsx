@@ -1,0 +1,82 @@
+import { useState } from "react";
+
+const StartupCreation = () => {
+  
+  const [formData, setFormData] = useState({
+    name: "",
+    industry: "",
+    stage: "",
+    foundedYear: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const body = { ...formData, foundedYear: Number(formData.foundedYear) };
+
+    const res = await fetch('http://localhost:5000/api/startups', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+
+    console.log(data);
+  };
+
+  return (
+    <div className="max-w-xl mx-auto">
+      <h1 className="text-3xl font-heading mb-6">Create Startup</h1>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          name="name"
+          placeholder="Startup Name"
+          className="w-full border p-3 rounded"
+          onChange={handleChange}
+        />
+
+        <input
+          name="industry"
+          placeholder="Industry"
+          className="w-full border p-3 rounded"
+          onChange={handleChange}
+        />
+
+        <select
+          name="stage"
+          className="w-full border p-3 rounded"
+          onChange={handleChange}
+        >
+          <option value="">Select Stage</option>
+          <option value="idea">Idea</option>
+          <option value="mvp">MVP</option>
+          <option value="early">Early</option>
+          <option value="growth">Growth</option>
+          <option value="scale">Scale</option>
+        </select>
+
+        <input
+          name="foundedYear"
+          placeholder="Founded Year"
+          className="w-full border p-3 rounded"
+          onChange={handleChange}
+        />
+
+        <button className="bg-primary px-6 py-3 rounded">Create Startup</button>
+      </form>
+    </div>
+  );
+};
+
+export default StartupCreation;
