@@ -1,11 +1,7 @@
-import React from 'react'
+import AppRouter from "./router/AppRouter";
 
 const App = () => {
-  return (
-    <div className='text-3xl font-bold'>
-      Startup Valuator
-    </div>
-  )
-}
+  return <AppRouter />;
+};
 
-export default App
+export default App;
