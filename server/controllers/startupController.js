@@ -20,4 +20,13 @@ const getStartup = async (req, res) => {
   }
 };
 
-module.exports = { createStartup, getStartup };
+const getAllStartups = async (req, res) => {
+  try {
+    const startups = await startupService.getAllStartups();
+    res.json(startups);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createStartup, getStartup, getAllStartups };

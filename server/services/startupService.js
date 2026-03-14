@@ -20,4 +20,8 @@ const getStartupById = async(id) => {
     return await Startup.findById(id);
 };
 
-module.exports = { createStartup, getStartupById };
+const getAllStartups = async () => {
+    return await Startup.find();
+}
+
+module.exports = { createStartup, getStartupById, getAllStartups };
