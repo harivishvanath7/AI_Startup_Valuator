@@ -3,7 +3,10 @@ const Metrics = require("../models/Metrics");
 
 const valuationService = require("../services/valuationService");
 const healthScoreService = require("../services/healthScoreService");
+
 const aiInsightService = require("../services/aiInsightService");
+// Added Risk Analysis
+const aiRiskAnalyser = require("../services/aiRiskAnalyser");
 
 const analyzeStartup = async (req, res) => {
   try {
@@ -24,10 +27,15 @@ const analyzeStartup = async (req, res) => {
       healthScore,
     );
 
+    // AI Risk Analysis
+    const risks = await aiRiskAnalyser.analyseRisks(startup, metrics);
+
     res.json({
       valuation: valuationData,
       healthScore,
       aiInsights: insights,
+      // risk analysis added
+      riskAnalysis: risks
     });
     
   } catch (error) {
