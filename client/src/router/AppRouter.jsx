@@ -1,10 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard";
 import StartupCreation from "../pages/StartupCreation";
+import StartupMetricsForm from "../pages/StartupMetricsForm";
 
 const AppRouter = () => {
   return (
@@ -16,9 +18,19 @@ const AppRouter = () => {
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/startups/create" element={<StartupCreation />} />
+        <Route path="/startups/:startupId/metrics" element={<StartupMetricsFormWrapper />} />
+
       </Routes>
     </BrowserRouter>
   );
 };
+
+// Wrapper to get startupId from URL
+
+const StartupMetricsFormWrapper = () => {
+  const { startupId } = useParams();
+  return <StartupMetricsForm startupId={startupId} />;
+};
+
 
 export default AppRouter;

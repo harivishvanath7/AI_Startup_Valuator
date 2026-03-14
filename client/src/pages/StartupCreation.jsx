@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const StartupCreation = () => {
+
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     name: "",
@@ -31,7 +34,10 @@ const StartupCreation = () => {
 
     const data = await res.json();
 
-    console.log(data);
+    console.log("Startup Created:", data);
+
+    // Redirect to metrics form with startupId
+    navigate(`/startups/${data.startup._id}/metrics`);
   };
 
   return (
