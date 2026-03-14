@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 
 const authRoutes = require("./routes/authRoutes");
 const startupRoutes = require("./routes/startupRoutes");
+const metricsRoutes = require("./routes/metricRoutes");
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/startups", startupRoutes);
+app.use("/api/metrics", metricsRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello Founders!!..");

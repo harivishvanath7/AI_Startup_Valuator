@@ -7,21 +7,33 @@ const metricsSchema = new mongoose.Schema(
             ref: "Startup",
             required: true
         },
-        revenue: {
+        monthlyRevenue: {
             type: Number,
             default: 0
         },
         growthRate: {
-            type: Number
+            type: Number,
+            default: 0
         },
         customerCount: {
-            type: Number
+            type: Number,
+            default: 0
         },
         burnRate: {
-            type: Number
+            type: Number,
+            default: 0
         },
         marketSize: {
-            type: Number
+            type: Number,
+            default: 0
+        },
+        CAC: {
+            type: Number,
+            default: 0
+        },
+        LTV: {
+            type: Number,
+            default: 0
         }
     },
     { timestamps: true }
