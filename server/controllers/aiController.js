@@ -7,6 +7,8 @@ const healthScoreService = require("../services/healthScoreService");
 const aiInsightService = require("../services/aiInsightService");
 // Added Risk Analysis
 const aiRiskAnalyser = require("../services/aiRiskAnalyser");
+// Added Investor Readiness Score
+const investorScoreService = require("../services/investorScoreService");
 
 const analyzeStartup = async (req, res) => {
   try {
@@ -30,12 +32,17 @@ const analyzeStartup = async (req, res) => {
     // AI Risk Analysis
     const risks = await aiRiskAnalyser.analyseRisks(startup, metrics);
 
+    // Investor Score
+    const investorScore = await investorScoreService.evaluateInvestorReadiness(startup, metrics);
+
     res.json({
       valuation: valuationData,
       healthScore,
       aiInsights: insights,
       // risk analysis added
-      riskAnalysis: risks
+      riskAnalysis: risks,
+      // investor readiness added
+      investorReadiness: investorScore  
     });
     
   } catch (error) {

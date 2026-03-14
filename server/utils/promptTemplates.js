@@ -67,7 +67,41 @@ const riskAnalysisPrompt = (startup, metrics, valuation, healthScore) => {
     `;
 };
 
+const investorScorePrompt = (startup, metrics) => {
+  return `
+        You are a venture capitalist evaluating startup funding readiness.
+
+        Evaluate the startup based on:
+
+        - traction
+        - market opportunity
+        - financial health
+        - growth potential
+
+        Startup Info
+        Industry: ${startup.industry}
+        Stage: ${startup.stage}
+
+        Metrics
+        Monthly Revenue: ${metrics.monthlyRevenue}
+        Growth Rate: ${metrics.growthRate}
+        Customer Count: ${metrics.customerCount}
+        Burn Rate: ${metrics.burnRate}
+        Market Size: ${metrics.marketSize}
+        CAC: ${metrics.CAC}
+        LTV: ${metrics.LTV}
+
+        Return ONLY JSON:
+
+        {
+        "investorScore": number,
+        "explanation": ""
+        }
+    `;
+};
+
 module.exports = {
   startupInsightPrompt,
   riskAnalysisPrompt,
+  investorScorePrompt,
 };
