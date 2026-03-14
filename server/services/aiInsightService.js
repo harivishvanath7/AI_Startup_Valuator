@@ -1,36 +1,11 @@
 const groq = require("../config/groqClient");
 const parseJSON = require("../utils/jsonParser");
+const { startupInsightPrompt } = require("../utils/promptTemplates");
 
 const generateInsights = async (startup, metrics, valuation, healthScore) => {
-    const prompt = `
-        You are a venture capital analyst.
-        Analyze the following startup.
-
-        Startup Info:
-        Industry: ${startup.industry}
-        Stage: ${startup.stage}
-
-        Metrics:
-        Monthly Revenue: ${metrics.monthlyRevenue}
-        Growth Rate: ${metrics.growthRate}
-        Customer Count: ${metrics.customerCount}
-        Burn Rate: ${metrics.burnRate}
-        Market Size: ${metrics.marketSize}
-        CAC: ${metrics.CAC}
-        LTV: ${metrics.LTV}
-
-        Calculated Metrics:
-        Valuation: ${valuation}
-        Health Score: ${healthScore}
-
-        Return ONLY JSON in this format:
-
-        {
-        "strengths": [],
-        "weaknesses": [],
-        "growthSuggestions": [],
-        "investmentAttractiveness": ""
-        }`;
+    
+    // Get the prompt
+    const prompt = startupInsightPrompt(startup, metrics, valuation, healthScore);
 
     const response = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
