@@ -7,6 +7,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/Dashboard";
 import StartupCreation from "../pages/StartupCreation";
 import StartupMetricsForm from "../pages/StartupMetricsForm";
+import StartupAnalysis from "../pages/StartupAnalysis";
 
 const AppRouter = () => {
   return (
@@ -19,6 +20,7 @@ const AppRouter = () => {
         </Route>
         <Route path="/startups/create" element={<StartupCreation />} />
         <Route path="/startups/:startupId/metrics" element={<StartupMetricsFormWrapper />} />
+        <Route path="/startups/:startupId/analysis" element={<StartupAnalysis />}/>
 
       </Routes>
     </BrowserRouter>
