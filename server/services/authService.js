@@ -21,9 +21,17 @@ const registerUser = async (data) => {
     password: hashedPassword
   });
 
+  const token = jwt.sign(
+    { id: user._id },
+    JWT_SECRET,
+    { expiresIn: "7d" }
+  );
+
+
   return {
     message: "User Registered.",
-    user,
+    token,
+    user
   };
 };
 
