@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API_BASE from "./config";
 
 const Dashboard = () => {
   const [startups, setStartups] = useState([]);
 
   const token = localStorage.getItem("token");
-
+  
   useEffect(() => {
     const fetchStartups = async () => {
-      const res = await fetch("http://localhost:5000/api/startups", {
+      const res = await fetch(`${API_BASE}/api/startups`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import API_BASE from "./config";
 
 const StartupMetricsForm = () => {
   const navigate = useNavigate();
 
   const { startupId } = useParams();
-  
+
   console.log("METRICS PAGE ID:", startupId);
 
   const [formData, setFormData] = useState({
@@ -29,10 +30,9 @@ const StartupMetricsForm = () => {
       alert("Startup ID missing. Please try again.");
       return;
     }
-
     const body = { ...formData, startupId };
 
-    const res = await fetch("http://localhost:5000/api/metrics", {
+    const res = await fetch(`${API_BASE}/api/metrics`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),

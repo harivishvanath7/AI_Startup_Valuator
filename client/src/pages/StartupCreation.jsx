@@ -1,38 +1,38 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import API_BASE from "./config";
 
 const StartupCreation = () => {
-
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState({
     name: "",
     industry: "",
     stage: "",
-    foundedYear: ""
+    foundedYear: "",
   });
 
   const handleChange = (e) => {
     setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const body = { ...formData, foundedYear: Number(formData.foundedYear) };
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch('http://localhost:5000/api/startups', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(body)
+    const res = await fetch(`${API_BASE}/api/startups`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
     });
 
     const data = await res.json();
