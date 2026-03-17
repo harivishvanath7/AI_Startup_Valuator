@@ -1,4 +1,4 @@
-const HealthScoreCard = ({ score }) => {
+const HealthScoreCard = ({ data }) => {
 
   return (
     <div className="bg-white shadow p-6 rounded">
@@ -8,7 +8,7 @@ const HealthScoreCard = ({ score }) => {
       </h2>
 
       <p className="text-4xl font-bold mt-2">
-        {score} / 100
+        {data} / 100
       </p>
 
     </div>

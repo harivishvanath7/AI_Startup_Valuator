@@ -1,4 +1,4 @@
-const ValuationCard = ({ valuation }) => {
+const ValuationCard = ({ data }) => {
 
   return (
     <div className="bg-white shadow p-6 rounded">
@@ -8,15 +8,15 @@ const ValuationCard = ({ valuation }) => {
       </h2>
 
       <p className="text-3xl font-bold mt-2">
-        ${valuation.valuation.toLocaleString()}
+        ${data.valuation.toLocaleString()}
       </p>
 
       <p className="text-sm text-gray-500 mt-2">
-        Range: ${valuation.valuationRange.low} - ${valuation.valuationRange.high}
+        Range: ${data.valuationRange.low} - ${data.valuationRange.high}
       </p>
 
       <p className="text-sm">
-        Confidence: {(valuation.confidenceScore * 100).toFixed(0)}%
+        Confidence: {(data.confidenceScore * 100).toFixed(0)}%
       </p>
 
     </div>
