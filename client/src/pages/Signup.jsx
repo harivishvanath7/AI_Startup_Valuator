@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import signupUser from "../api/authApi";
+import { signupUser } from "../api/authApi";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -21,12 +21,18 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("FORM DATA:", form);
+
     const res = await signupUser(form);
+
+    console.log("API RESPONSE:", res);
 
     if (res.token) {
       localStorage.setItem("token", res.token);
+      console.log("TOKEN SAVED:", res.token);
       navigate("/dashboard");
     } else {
+      console.log("NO TOKEN RETURNED");
       alert(res.message);
     }
   };
@@ -41,6 +47,7 @@ const Signup = () => {
 
         <input
           type="text"
+          name="name"
           placeholder="Name"
           className="w-full border p-3 mb-4 rounded"
           onChange={handleChange}
@@ -48,6 +55,7 @@ const Signup = () => {
 
         <input
           type="email"
+          name="email"
           placeholder="Email"
           className="w-full border p-3 mb-4 rounded"
           onChange={handleChange}
@@ -55,6 +63,7 @@ const Signup = () => {
 
         <input
           type="password"
+          name="password"
           placeholder="Password"
           className="w-full border p-3 mb-6 rounded"
           onChange={handleChange}

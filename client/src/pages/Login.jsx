@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import loginUser from "../api/authApi";
+import { loginUser } from "../api/authApi";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -40,6 +40,7 @@ const Login = () => {
 
         <input
           type="email"
+          name="email"
           placeholder="Email"
           className="w-full border p-3 mb-4 rounded"
           onChange={handleChange}
@@ -47,6 +48,7 @@ const Login = () => {
 
         <input
           type="password"
+          name="password"
           placeholder="Password"
           className="w-full border p-3 mb-6 rounded"
           onChange={handleChange}
