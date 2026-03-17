@@ -7,7 +7,7 @@ const createStartup = async(data, userId) => {
         industry: data.industry,
         stage: data.stage,
         foundedYear: Number(data.foundedYear),
-        founderId: null, // userId - null (temporarily for dev)
+        founderId: userId, 
     });
     return {
         message: "Startup Created",
@@ -20,8 +20,8 @@ const getStartupById = async(id) => {
     return await Startup.findById(id);
 };
 
-const getAllStartups = async () => {
-    return await Startup.find();
+const getAllStartups = async (userId) => {
+    return await Startup.find({ founderId: userId }).sort({ createdAt: -1 });
 }
 
 module.exports = { createStartup, getStartupById, getAllStartups };
