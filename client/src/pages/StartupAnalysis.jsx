@@ -7,42 +7,71 @@ import InvestorScoreCard from "../components/InvestorScoreCard";
 import RiskCard from "../components/RiskCard";
 import ValuationCard from "../components/ValuationCard";
 
+import aiAnalysisApi from "../api/aiAnalysisApi";
+
 const StartupAnalysis = () => {
   const { startupId } = useParams();
 
+  console.log("ANALYSIS PAGE ID:", startupId);
+
+  const [loading, setLoading] = useState(true);
   const [analysis, setAnalysis] = useState(null);
 
-  const fetchAnalysis = async () => {
-    const res = await fetch("/api/ai/analyzeStartup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ startupId }),
-    });
-
-    const data = await res.json();
-
-    setAnalysis(data);
-  };
-
   useEffect(() => {
+
+    if(!startupId){
+      console.log("No startupId found!", startupId);
+      setLoading(false);
+      return;
+    }
+
+    const fetchAnalysis = async () => {
+      try {
+      
+        const data = await aiAnalysisApi.runAnalysis(startupId);
+        console.log("AI Analysis:", data);
+
+        setAnalysis(data);
+        
+      } catch (err) {
+        console.error(err);
+      }
+
+      setLoading(false);
+    };
+
     fetchAnalysis();
-  }, []);
+  }, [startupId]);
 
-  if (!analysis) return <div>Loading Analysis...</div>;
+  //  Loading Screen
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center h-[70vh]">
+        <h1 className="text-2xl font-bold mb-4">Analyzing your startup...</h1>
 
+        <div className="animate-pulse text-gray-500">
+          AI is generating insights 🚀
+        </div>
+      </div>
+    );
+  }
+
+  // ❌ If failed
+  if (!analysis) {
+    return <p>Failed to load analysis</p>;
+  }
+
+  // ✅ Show Results
   return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Startup AI Analysis</h1>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-heading">Startup Analysis</h1>
 
-      <ValuationCard valuation={analysis.valuation} />
-
-      <HealthScoreCard score={analysis.healthScore} />
-
-      <InvestorScoreCard data={analysis.investorReadiness} />
-
-      <RiskCard data={analysis.riskAnalysis} />
+      <div className="grid grid-cols-2 gap-6">
+        <ValuationCard data={analysis.valuation} />
+        <HealthScoreCard data={analysis.healthScore} />
+        <InvestorScoreCard data={analysis.investorReadiness} />
+        <RiskCard data={analysis.riskAnalysis} />
+      </div>
 
       <AIInsightsCard insights={analysis.aiInsights} />
     </div>
