@@ -4,7 +4,7 @@ const API_BASE = "http://localhost:5000/api";
 // Auth API
 
 // Signup
-const signupUser = async (data) => {
+export const signupUser = async (data) => {
     const res = await fetch(`${API_BASE}/auth/signup`, {
         method: "POST",
         headers: {
@@ -17,7 +17,7 @@ const signupUser = async (data) => {
 }
 
 // Login
-const loginUser = async (data) => {
+export const loginUser = async (data) => {
     const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: {
@@ -28,8 +28,3 @@ const loginUser = async (data) => {
 
     return res.json();
 }
-
-export default {
-    signupUser,
-    loginUser
-};
