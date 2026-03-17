@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import API_BASE from "./config";
+import API_BASE from "../config/config";
 
 const StartupMetricsForm = () => {
   const navigate = useNavigate();

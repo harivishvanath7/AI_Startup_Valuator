@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import API_BASE from "./config";
+import API_BASE from "../config/config";
 
 const Dashboard = () => {
   const [startups, setStartups] = useState([]);
