@@ -3,24 +3,27 @@ const { registerUser, loginUser } = require("../services/authService");
 // User Register
 const signup = async (req, res) => {
     try {
-        const user = await registerUser(req.body);
+        const data = await registerUser(req.body);
+
         res.status(201).json({
             message: "User Registered",
-            user
+            token: data.token,
+            user: data.user
         });
+
     } catch (error) {
         res.status(400).json({ 
             message: error.message 
         });
     }
-}
+};
 
 // User Login
 const login = async (req, res) => {
     try {
-        const token = await loginUser(req.body);
+        const data = await loginUser(req.body);
 
-        res.cookie("token", token, {
+        res.cookie("token", data.token, {
             httpOnly: true,
             sameSite: "strict",
             secure: false
@@ -28,8 +31,9 @@ const login = async (req, res) => {
 
         res.json({ 
             message: "Login Successful",
-            token
+            token: data.token
          });
+
     } catch (error) {
         res.status(401).json({ 
             message: error.message 
