@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useParams } from "react-router-dom";
+
+import Home from "../pages/Home";
 
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
@@ -17,6 +18,8 @@ const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -33,7 +36,7 @@ const AppRouter = () => {
           <Route path="/startups/create" element={<StartupCreation />} />
           <Route
             path="/startups/:startupId/metrics"
-            element={<StartupMetricsFormWrapper />}
+            element={<StartupMetricsForm />}
           />
           <Route
             path="/startups/:startupId/analysis"
@@ -43,13 +46,6 @@ const AppRouter = () => {
       </Routes>
     </BrowserRouter>
   );
-};
-
-// Wrapper to get startupId from URL
-
-const StartupMetricsFormWrapper = () => {
-  const { startupId } = useParams();
-  return <StartupMetricsForm startupId={startupId} />;
 };
 
 export default AppRouter;
