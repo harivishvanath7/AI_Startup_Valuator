@@ -1,6 +1,13 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-const StartupMetricsForm = ({ startupId }) => {
+const StartupMetricsForm = () => {
+  const navigate = useNavigate();
+
+  const { startupId } = useParams();
+  
+  console.log("METRICS PAGE ID:", startupId);
+
   const [formData, setFormData] = useState({
     monthlyRevenue: "",
     growthRate: "",
@@ -8,7 +15,7 @@ const StartupMetricsForm = ({ startupId }) => {
     burnRate: "",
     marketSize: "",
     CAC: "",
-    LTV: ""
+    LTV: "",
   });
 
   const handleChange = (e) => {
@@ -18,16 +25,23 @@ const StartupMetricsForm = ({ startupId }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!startupId || startupId === "undefined") {
+      alert("Startup ID missing. Please try again.");
+      return;
+    }
+
     const body = { ...formData, startupId };
 
     const res = await fetch("http://localhost:5000/api/metrics", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
     const data = await res.json();
-    console.log(data);
+    console.log("Metrics Saved:", data);
+
+    navigate(`/startups/${startupId}/analysis`);
   };
 
   return (

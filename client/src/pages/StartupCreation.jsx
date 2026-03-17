@@ -24,20 +24,30 @@ const StartupCreation = () => {
     
     const body = { ...formData, foundedYear: Number(formData.foundedYear) };
 
+    const token = localStorage.getItem("token");
+
     const res = await fetch('http://localhost:5000/api/startups', {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(body)
     });
 
     const data = await res.json();
 
+    console.log("Status:", res.status);
     console.log("Startup Created:", data);
+
+    if (!res.ok) {
+      alert(data.message || "Failed to create startup.");
+      return;
+    }
 
     // Redirect to metrics form with startupId
     navigate(`/startups/${data.startup._id}/metrics`);
+    console.log("CREATED ID:", data.startup._id);
   };
 
   return (
