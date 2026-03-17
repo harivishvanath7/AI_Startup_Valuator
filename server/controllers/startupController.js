@@ -3,8 +3,11 @@ const startupService = require("../services/startupService");
 // Creating a Startup data
 const createStartup = async (req, res) => {
   try {
-    const startup = await startupService.createStartup(req.body, null); // req.user.id -> null (testing)
-    res.status(201).json(startup);
+    const { startup } = await startupService.createStartup(req.body, req.user.id); 
+
+    res.status(201).json({
+      startup
+    });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -13,7 +16,7 @@ const createStartup = async (req, res) => {
 // Getting startup details
 const getStartup = async (req, res) => {
   try {
-    const startup = startupService.getStartupById(req.params.id);
+    const startup = await startupService.getStartupById(req.params.id);
     res.json(startup);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -22,11 +25,34 @@ const getStartup = async (req, res) => {
 
 const getAllStartups = async (req, res) => {
   try {
-    const startups = await startupService.getAllStartups();
+    const startups = await startupService.getAllStartups(req.user.id);
     res.json(startups);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { createStartup, getStartup, getAllStartups };
+// Save metrics and run AI analysis
+const saveMetrics = async (req, res) => {
+  try {
+    const { startupId, ...metrics } = req.body;
+
+    const startup = await startupService.getStartupById(startupId);
+    if (!startup) return res.status(404).json({ message: "Startup not found" });
+
+    // Save metrics inside startup
+    startup.metrics = metrics;
+
+    // Run AI analysis
+    const aiAnalysis = await runAIAnalysis(startup); // should return structured object
+    startup.aiAnalysis = aiAnalysis;
+
+    await startup.save();
+
+    res.json({ startup });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { createStartup, getStartup, getAllStartups, saveMetrics };
