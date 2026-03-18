@@ -32,7 +32,7 @@ const StartupMetricsForm = () => {
     }
     const body = { ...formData, startupId };
 
-    const res = await fetch(`${API_BASE}/api/metrics`, {
+    const res = await fetch(`${API_BASE}/metrics`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
