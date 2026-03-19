@@ -6,7 +6,7 @@ import API_BASE from "../config/config";
 
 // Signup
 export const signupUser = async (data) => {
-    const res = await fetch(`${API_BASE}/api/auth/signup`, {
+    const res = await fetch(`${API_BASE}/auth/signup`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -19,7 +19,7 @@ export const signupUser = async (data) => {
 
 // Login
 export const loginUser = async (data) => {
-    const res = await fetch(`${API_BASE}/api/auth/login`, {
+    const res = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
