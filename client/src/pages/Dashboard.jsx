@@ -4,25 +4,41 @@ import API_BASE from "../config/config";
 
 const Dashboard = () => {
   const [startups, setStartups] = useState([]);
+  // Add loading Screen logic
+  const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-  
+
   useEffect(() => {
     const fetchStartups = async () => {
-      const res = await fetch(`${API_BASE}/api/startups`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = await res.json();
+      try {
+        const res = await fetch(`${API_BASE}/api/startups`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
 
-      setStartups(data);
+        setStartups(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchStartups();
-  }, []);
+  }, [token]);
   console.log(startups);
   const navigate = useNavigate();
+
+  if (loading) {
+    return (
+      <div className="p-6">
+        <h1 className="text-2xl">Loading Dashboard...</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
