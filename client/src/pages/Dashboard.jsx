@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import API_BASE from "../config/config";
+import startupApi from "../api/startupApi";
 
 const Dashboard = () => {
   const [startups, setStartups] = useState([]);
@@ -39,6 +40,20 @@ const Dashboard = () => {
       </div>
     );
   }
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure?");
+
+    if (!confirmDelete) return;
+
+    try {
+      await startupApi.deleteStartup(id);
+
+      setStartups((prev) => prev.filter((s) => s._id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="space-y-8">
@@ -91,12 +106,22 @@ const Dashboard = () => {
                   </p>
                 </div>
 
-                <button
-                  onClick={() => navigate(`/startups/${startup._id}/analysis`)}
-                  className="bg-blue-500 text-white px-4 py-2 mt-2 rounded"
-                >
-                  View Analysis
-                </button>
+                <div>
+                  <button
+                    onClick={() => handleDelete(startup._id)}
+                    className="bg-red-400 text-white px-4 py-2 mt-2 mr-2 rounded"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/startups/${startup._id}/analysis`)
+                    }
+                    className="bg-blue-500 text-white px-4 py-2 mt-2 rounded"
+                  >
+                    View Analysis
+                  </button>
+                </div>
               </div>
             );
           })}
