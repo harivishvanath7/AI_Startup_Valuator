@@ -3,10 +3,13 @@ const startupService = require("../services/startupService");
 // Creating a Startup data
 const createStartup = async (req, res) => {
   try {
-    const { startup } = await startupService.createStartup(req.body, req.user.id); 
+    const { startup } = await startupService.createStartup(
+      req.body,
+      req.user.id,
+    );
 
     res.status(201).json({
-      startup
+      startup,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -55,4 +58,28 @@ const saveMetrics = async (req, res) => {
   }
 };
 
-module.exports = { createStartup, getStartup, getAllStartups, saveMetrics };
+// Deleting a Startup Item
+const deleteStartup = async (req, res) => {
+  try {
+    const deleted = await startupService.deleteStartup(
+      req.params.id,
+      req.user.id,
+    );
+
+    if (!deleted) {
+      return res.status(404).json({ message: "Startup not found" });
+    }
+
+    res.json({ message: "Startup deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = {
+  createStartup,
+  getStartup,
+  getAllStartups,
+  saveMetrics,
+  deleteStartup,
+};

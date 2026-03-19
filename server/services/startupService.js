@@ -24,4 +24,11 @@ const getAllStartups = async (userId) => {
     return await Startup.find({ founderId: userId }).sort({ createdAt: -1 });
 }
 
-module.exports = { createStartup, getStartupById, getAllStartups };
+const deleteStartup = async (id, userId) => {
+    return await Startup.findOneAndDelete({
+        _id: id,
+        founderId: userId
+    });
+};
+
+module.exports = { createStartup, getStartupById, getAllStartups, deleteStartup };
