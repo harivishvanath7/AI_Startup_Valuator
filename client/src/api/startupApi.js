@@ -2,21 +2,38 @@
 import API_BASE from "../config/config";
 
 const createStartup = async (data) => {
+  const token = localStorage.getItem("token");
 
-    const token = localStorage.getItem("token");
+  const res = await fetch(`${API_BASE}/api/startups`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data),
+  });
 
-    const res = await fetch(`${API_BASE}/api/startups`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify(data)
-    });
+  return res.json();
+};
 
-    return res.json();
+const deleteStartup = async (id) => {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${API_BASE}/api/startups/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Delete failed");
+  }
+
+  return res.json();
 };
 
 export default {
-    createStartup
+  createStartup,
+  deleteStartup,
 };
