@@ -26,7 +26,7 @@ const StartupCreation = () => {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`${API_BASE}/startups`, {
+    const res = await fetch(`${API_BASE}/api/startups`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

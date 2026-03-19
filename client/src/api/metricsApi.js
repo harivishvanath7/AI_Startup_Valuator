@@ -6,7 +6,7 @@ const addMetrics = async (startupId, data) => {
 
     const token = localStorage.getItem("token");
 
-    const res = await fetch(`${API_BASE}/metrics/${startupId}`, {
+    const res = await fetch(`${API_BASE}/api/metrics/${startupId}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
