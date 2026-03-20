@@ -55,6 +55,19 @@ const Dashboard = () => {
     }
   };
 
+  const startupsWithValuation = startups.filter(
+    (s) => s.aiAnalysis?.valuation?.valuation,
+  );
+
+  const avgValuation =
+    startupsWithValuation.length > 0
+      ? startupsWithValuation.reduce((acc, s) => {
+          return acc + s.aiAnalysis.valuation.valuation;
+        }, 0) / startupsWithValuation.length
+      : 0;
+
+  const analysesDone = startups.filter((s) => s.aiAnalysis).length;
+
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-heading">Dashboard</h1>
@@ -68,12 +81,12 @@ const Dashboard = () => {
 
         <div className="bg-card p-6 rounded-xl shadow">
           <p className="text-gray-500">Analyses Done</p>
-          <h2 className="text-2xl font-bold">--</h2>
+          <h2 className="text-2xl font-bold">{analysesDone}</h2>
         </div>
 
         <div className="bg-card p-6 rounded-xl shadow">
           <p className="text-gray-500">Avg Valuation</p>
-          <h2 className="text-2xl font-bold">$ --</h2>
+          <h2 className="text-2xl font-bold">{avgValuation.toFixed(0)}</h2>
         </div>
       </div>
 
