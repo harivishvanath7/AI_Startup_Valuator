@@ -29,3 +29,13 @@ export const loginUser = async (data) => {
 
     return res.json();
 }
+
+// Logout
+export const logoutUser = async () => {
+    const res = await fetch(`${API_BASE}/api/auth/logout`, {
+        method: "POST",
+        credentials: "include",
+    });
+
+    return res.json();
+}
