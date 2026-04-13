@@ -38,7 +38,19 @@ const deleteStartup = async (id) => {
     },
   });
 
-  const data = await res.json();
+  const contentType = res.headers.get("content-type") || "";
+  let data;
+
+  if (contentType.includes("application/json")) {
+    data = await res.json();
+  } else {
+    const text = await res.text();
+    if (!res.ok) {
+      throw new Error(text || "Delete failed");
+    }
+    return { message: "Deleted" };
+  }
+
   if (!res.ok) {
     throw new Error(data?.message || "Delete failed");
   }
