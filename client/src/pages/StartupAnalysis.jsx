@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import AIInsightsCard from "../components/AIInsightsCard";
 import HealthScoreCard from "../components/HealthScoreCard";
@@ -11,6 +11,7 @@ import aiAnalysisApi from "../api/aiAnalysisApi";
 
 const StartupAnalysis = () => {
   const { startupId } = useParams();
+  const navigate = useNavigate();
 
   console.log("ANALYSIS PAGE ID:", startupId);
 
@@ -64,7 +65,15 @@ const StartupAnalysis = () => {
   // ✅ Show Results
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-heading">Startup Analysis</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-heading">Startup Analysis</h1>
+        <button
+          onClick={() => navigate("/dashboard")}
+          className="bg-primary text-white px-4 py-2 rounded"
+        >
+          Back to Dashboard
+        </button>
+      </div>
 
       <div className="grid grid-cols-2 gap-6">
         <ValuationCard data={analysis.valuation} />
