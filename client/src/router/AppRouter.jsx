@@ -11,6 +11,7 @@ import Dashboard from "../pages/Dashboard";
 import StartupCreation from "../pages/StartupCreation";
 import StartupMetricsForm from "../pages/StartupMetricsForm";
 import StartupAnalysis from "../pages/StartupAnalysis";
+import Startups from "../pages/Startups";
 
 import ProtectedRoute from "../components/ProtectedRoute";
 
@@ -33,6 +34,7 @@ const AppRouter = () => {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/startups" element={<Startups />} />
           <Route path="/startups/create" element={<StartupCreation />} />
           <Route
             path="/startups/:startupId/metrics"
