@@ -4,7 +4,7 @@ import SideBar from "../components/SideBar";
 
 const DashboardLayout = () => {
   return (
-    <div className="flex h-screen bg-background">
+    <div className="flex min-h-screen bg-background">
       <SideBar />
       <div className="flex flex-col flex-1">
         <Header />
