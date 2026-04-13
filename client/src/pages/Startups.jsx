@@ -31,6 +31,7 @@ const Startups = () => {
       setStartups((prev) => prev.filter((startup) => startup._id !== id));
     } catch (error) {
       console.error(error);
+      alert(error.message || "Delete failed");
     }
   };
 

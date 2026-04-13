@@ -52,6 +52,7 @@ const Dashboard = () => {
       setStartups((prev) => prev.filter((s) => s._id !== id));
     } catch (error) {
       console.error(error);
+      alert(error.message || "Delete failed");
     }
   };
 
