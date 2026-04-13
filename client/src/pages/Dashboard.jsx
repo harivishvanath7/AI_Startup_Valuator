@@ -55,14 +55,14 @@ const Dashboard = () => {
     }
   };
 
-  const valuations = startups
-    .map((s) => Number(s.aiAnalysis?.valuation?.valuation))
-    .filter((value) => Number.isFinite(value) && value > 0);
+  // const valuations = startups
+  //   .map((s) => Number(s.aiAnalysis?.valuation?.valuation))
+  //   .filter((value) => Number.isFinite(value) && value > 0);
 
-  const avgValuation =
-    valuations.length > 0
-      ? valuations.reduce((acc, value) => acc + value, 0) / valuations.length
-      : 0;
+  // const avgValuation =
+  //   valuations.length > 0
+  //     ? valuations.reduce((acc, value) => acc + value, 0) / valuations.length
+  //     : 0;
 
   const analysesDone = startups.filter((s) => s.aiAnalysis).length;
 
