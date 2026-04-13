@@ -16,6 +16,18 @@ const createStartup = async (data) => {
   return res.json();
 };
 
+const getAllStartups = async () => {
+  const token = localStorage.getItem("token");
+
+  const res = await fetch(`${API_BASE}/api/startups`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.json();
+};
+
 const deleteStartup = async (id) => {
   const token = localStorage.getItem("token");
 
@@ -35,5 +47,6 @@ const deleteStartup = async (id) => {
 
 export default {
   createStartup,
+  getAllStartups,
   deleteStartup,
 };
