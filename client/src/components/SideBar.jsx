@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <aside className="w-64 bg-dark text-white p-6 flex flex-col">
+    <aside className="w-64 min-h-full bg-dark text-white p-6 flex flex-col">
       <h1 className="text-2xl font-heading mb-10">StartupAI</h1>
 
       <nav className="flex flex-col gap-4 font-body">
@@ -12,9 +12,9 @@ const SideBar = () => {
 
         <Link to="/startups/create">Create Startup</Link>
 
-        <Link to="/metrics">Metrics</Link>
+        {/* <Link to="/metrics">Metrics</Link>
 
-        <Link to="/reports">Reports</Link>
+        <Link to="/reports">Reports</Link> */}
       </nav>
     </aside>
   );
