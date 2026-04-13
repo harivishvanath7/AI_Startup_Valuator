@@ -38,24 +38,22 @@ const deleteStartup = async (id) => {
     },
   });
 
-  const contentType = res.headers.get("content-type") || "";
   let data;
+  let text;
 
-  if (contentType.includes("application/json")) {
+  try {
     data = await res.json();
-  } else {
-    const text = await res.text();
-    if (!res.ok) {
-      throw new Error(text || "Delete failed");
-    }
-    return { message: "Deleted" };
+  } catch (err) {
+    text = await res.text();
   }
 
   if (!res.ok) {
-    throw new Error(data?.message || "Delete failed");
+    throw new Error(
+      data?.message || text || `Delete failed (${res.status})`,
+    );
   }
 
-  return data;
+  return data || { message: "Deleted" };
 };
 
 export default {
