@@ -82,10 +82,10 @@ const Dashboard = () => {
           <h2 className="text-2xl font-bold">{analysesDone}</h2>
         </div>
 
-        <div className="bg-card p-6 rounded-xl shadow">
+        {/* <div className="bg-card p-6 rounded-xl shadow">
           <p className="text-gray-500">Avg Valuation</p>
           <h2 className="text-2xl font-bold">{avgValuation.toFixed(0)}</h2>
-        </div>
+        </div> */}
       </div>
 
       {/* Startups List */}
