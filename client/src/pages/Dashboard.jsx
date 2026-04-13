@@ -55,15 +55,13 @@ const Dashboard = () => {
     }
   };
 
-  const startupsWithValuation = startups.filter(
-    (s) => s.aiAnalysis?.valuation?.valuation,
-  );
+  const valuations = startups
+    .map((s) => Number(s.aiAnalysis?.valuation?.valuation))
+    .filter((value) => Number.isFinite(value) && value > 0);
 
   const avgValuation =
-    startupsWithValuation.length > 0
-      ? startupsWithValuation.reduce((acc, s) => {
-          return acc + s.aiAnalysis.valuation.valuation;
-        }, 0) / startupsWithValuation.length
+    valuations.length > 0
+      ? valuations.reduce((acc, value) => acc + value, 0) / valuations.length
       : 0;
 
   const analysesDone = startups.filter((s) => s.aiAnalysis).length;
