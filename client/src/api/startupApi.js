@@ -38,18 +38,18 @@ const deleteStartup = async (id) => {
     },
   });
 
+  const raw = await res.text();
   let data;
-  let text;
 
   try {
-    data = await res.json();
+    data = raw ? JSON.parse(raw) : null;
   } catch (err) {
-    text = await res.text();
+    data = null;
   }
 
   if (!res.ok) {
     throw new Error(
-      data?.message || text || `Delete failed (${res.status})`,
+      data?.message || raw || `Delete failed (${res.status})`,
     );
   }
 
